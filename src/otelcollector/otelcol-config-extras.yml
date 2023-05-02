@@ -31,8 +31,8 @@ service:
       exporters:
         - otlp
         - logging
+        - spanmetrics
         - otlp/honeycomb
       processors:
         - attributes
-        - spanmetrics
         - batch
