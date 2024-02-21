@@ -22,17 +22,10 @@ processors:
         action: insert
 service:
   pipelines:
-    metrics:
-      exporters:
-        - prometheus
-        - logging
-        - otlp/honeycomb
     traces:
-      exporters:
-        - otlp
-        - logging
-        - spanmetrics
-        - otlp/honeycomb
-      processors:
-        - attributes
-        - batch
+      processors: [attributes, batch]
+      exporters: [otlp, debug, spanmetrics, otlp/honeycomb]
+    metrics:
+      exporters: [oltphttp/prometheus, debug, otlp/honeycomb]
+    logs:
+      exporters: [opensearch, debug, otlp/honeycomb]
