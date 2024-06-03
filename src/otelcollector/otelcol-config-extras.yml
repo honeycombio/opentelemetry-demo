@@ -3,12 +3,18 @@
 
 # extra settings to be merged into OpenTelemetry Collector configuration
 # do not delete this file
-
+extraEnvs:
+  - name: HONEYCOMB_API_KEY
+    valueFrom:
+      secretKeyRef:
+        name: honeycomb
+        key: api-key
+        
 exporters:
   otlp/honeycomb:
     endpoint: "api.honeycomb.io:443"
     headers:
-      "x-honeycomb-team": "<HONEYCOMB_API_KEY>"
+      "x-honeycomb-team": "${HONEYCOMB_API_KEY}"
       "x-honeycomb-dataset": "webstore-metrics"
       
 service:
