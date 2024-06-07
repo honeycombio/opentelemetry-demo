@@ -257,7 +257,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 200M
+          memory: 250M
     restart: unless-stopped
     ports:
       - "${FRONTEND_PORT}"
@@ -279,6 +279,8 @@ services:
       - OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
       - WEB_OTEL_SERVICE_NAME=frontend-web
       - OTEL_COLLECTOR_HOST
+      - FLAGD_HOST
+      - FLAGD_PORT
     depends_on:
       adservice:
         condition: service_started
@@ -299,6 +301,8 @@ services:
       otelcol:
         condition: service_started
       imageprovider:
+        condition: service_started
+      flagd:
         condition: service_started
     logging: *logging
 
@@ -333,6 +337,8 @@ services:
       - OTEL_COLLECTOR_PORT_HTTP
       - OTEL_RESOURCE_ATTRIBUTES
       - ENVOY_PORT
+      - FLAGD_HOST
+      - FLAGD_PORT
     depends_on:
       frontend:
         condition: service_started
@@ -566,7 +572,7 @@ services:
   # ******************
   # Flagd, feature flagging service
   flagd:
-    image: ghcr.io/open-feature/flagd:v0.10.1
+    image: ${FLAGD_IMAGE}
     container_name: flagd
     deploy:
       resources:
@@ -601,7 +607,7 @@ services:
     deploy:
       resources:
         limits:
-          memory: 500M
+          memory: 600M
     restart: unless-stopped
     environment:
       - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
@@ -609,7 +615,7 @@ services:
       - OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE
       - OTEL_RESOURCE_ATTRIBUTES
       - OTEL_SERVICE_NAME=kafka
-      - KAFKA_HEAP_OPTS=-Xmx250m -Xms250m
+      - KAFKA_HEAP_OPTS=-Xmx400m -Xms400m
     healthcheck:
       test: nc -z kafka 9092
       start_period: 10s

@@ -30,13 +30,15 @@ const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={Theme}>
-      <QueryClientProvider client={queryClient}>
-        <CurrencyProvider>
-          <CartProvider>
-            <Component {...pageProps} />
-          </CartProvider>
-        </CurrencyProvider>
-      </QueryClientProvider>
+      <OpenFeatureProvider>
+        <QueryClientProvider client={queryClient}>
+          <CurrencyProvider>
+            <CartProvider>
+              <Component {...pageProps} />
+            </CartProvider>
+          </CurrencyProvider>
+        </QueryClientProvider>
+      </OpenFeatureProvider>
     </ThemeProvider>
   );
 }

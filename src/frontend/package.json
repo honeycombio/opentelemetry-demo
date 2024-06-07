@@ -11,7 +11,10 @@
     "grpc:generate": "mkdir -p ./protos && protoc -I ./pb  --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_opt=esModuleInterop=true --ts_proto_out=./protos --ts_proto_opt=outputServices=grpc-js demo.proto"
   },
   "dependencies": {
-    "@grpc/grpc-js": "1.9.13",
+    "@grpc/grpc-js": "1.10.8",
+    "@openfeature/flagd-provider": "0.13.0",
+    "@openfeature/flagd-web-provider": "0.7.1",
+    "@openfeature/react-sdk": "0.4.0",
     "@honeycombio/opentelemetry-web": "0.2.1",
     "@opentelemetry/api": "1.8.0",
     "@opentelemetry/auto-instrumentations-node": "0.46.0",
@@ -37,12 +40,12 @@
     "currency-symbol-map": "5.1.0",
     "dotenv": "16.3.1",
     "dotenv-expand": "10.0.0",
-    "next": "12.3.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "sharp": "0.33.2",
-    "styled-components": "6.1.1",
-    "ts-proto": "1.164.0",
+    "next": "13.5.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "sharp": "0.33.3",
+    "styled-components": "6.1.11",
+    "ts-proto": "1.174.0",
     "uuid": "9.0.1"
   },
   "devDependencies": {
@@ -59,6 +62,6 @@
     "eslint-plugin-react": "7.33.2",
     "eslint-plugin-react-hooks": "4.6.0",
     "openapi-typescript": "6.7.1",
-    "typescript": "5.2.2"
+    "typescript": "5.4.5"
   }
 }
